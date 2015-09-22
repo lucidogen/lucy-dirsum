@@ -16,6 +16,8 @@ const md5 = function ( self, apath, rpath, clbk, isdir )
     ( apath
     , function ( err, filenames )
       { if ( err ) return clbk ( err )
+        // for digest consistency across platforms
+        filenames.sort ()
         let i = 0, len = filenames.length
         let parse = function ( err )
         { if ( err ) return clbk ( err )

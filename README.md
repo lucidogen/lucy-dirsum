@@ -6,12 +6,9 @@ Utility functions and helper classes.
 
 ## Installation
 
-Currently only works with [**io.js**](https://iojs.org).
-
   ```shell
   npm install lucy-dirsum --save
   ```
-
 
 ## dirsum ( path, callback, ignoreFunction )
 
