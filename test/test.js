@@ -15,7 +15,7 @@ const base = __dirname + '/fixtures/'
 const FILE_CONTENTS =
 { 'foo.txt': 'Foo.'
 , 'bar.txt': 'Bar.'
-, 'sub/baz.txt': 'Baz baz.'
+, 'sub/Baz.txt': 'Baz baz.'
 }
 const DIRHEX = '3d7c284e8ebb554c1e5961340604b90c'
 
@@ -88,20 +88,27 @@ describe
       }
     )
 
-    it
-    ( 'should change digest on new file'
-    , function ( done )
-      { 
-        fs.writeFileSync ( base + 'other.txt', 'Fool.' )
-        dirsum
-        ( base
-        , function ( err, hex )
-          { hex.should.not.equal ( DIRHEX )
-            fs.unlinkSync ( base + 'other.txt' )
-            dirsum
+    describe
+    ( 'with new file'
+    , function ()
+      { before
+        ( function ()
+          { fs.writeFileSync ( base + 'other.txt', 'Fool.' )
+          }
+        )
+        after
+        ( function ()
+          { fs.unlinkSync ( base + 'other.txt' )
+          }
+        )
+
+        it
+        ( 'should change digest'
+        , function ( done )
+          { dirsum
             ( base
             , function ( err, hex )
-              { hex.should.equal ( DIRHEX )
+              { hex.should.not.equal ( DIRHEX )
                 done ()
               }
             )
@@ -110,19 +117,27 @@ describe
       }
     )
 
-    it
-    ( 'should change digest on new directory'
-    , function ( done )
-      { fs.mkdirSync ( base + 'other')
-        dirsum
-        ( base
-        , function ( err, hex )
-          { hex.should.not.equal ( DIRHEX )
-            fs.rmdirSync ( base + 'other' )
-            dirsum
+    describe
+    ( 'with new directory'
+    , function ()
+      { before
+        ( function ()
+          { fs.mkdirSync ( base + 'other')
+          }
+        )
+        after
+        ( function ()
+          { fs.rmdirSync ( base + 'other' )
+          }
+        )
+
+        it
+        ( 'should change digest'
+        , function ( done )
+          { dirsum
             ( base
             , function ( err, hex )
-              { hex.should.equal ( DIRHEX )
+              { hex.should.not.equal ( DIRHEX )
                 done ()
               }
             )
@@ -131,19 +146,28 @@ describe
       }
     )
 
-    it
-    ( 'should change digest on file move'
-    , function ( done )
-      { fs.renameSync ( base + 'foo.txt', base + 'fol.txt')
-        dirsum
-        ( base
-        , function ( err, hex )
-          { hex.should.not.equal ( DIRHEX )
-            fs.renameSync ( base + 'fol.txt', base + 'foo.txt')
+    describe
+    ( 'on file rename'
+    , function ()
+      { before
+        ( function ()
+          { fs.renameSync ( base + 'foo.txt', base + 'fol.txt')
+          }
+        )
+        after
+        ( function ()
+          { fs.renameSync ( base + 'fol.txt', base + 'foo.txt')
+          }
+        )
+
+        it
+        ( 'should change digest'
+        , function ( done )
+          { 
             dirsum
             ( base
             , function ( err, hex )
-              { hex.should.equal ( DIRHEX )
+              { hex.should.not.equal ( DIRHEX )
                 done ()
               }
             )
