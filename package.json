@@ -1,0 +1,34 @@
+{
+  "name": "lucy-dirsum",
+  "version": "0.1.0",
+  "description": "Utility functions and classes for Lucidity.",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/lucidogen/lucy-dirsum.git"
+  },
+  "keywords": [
+    "checksum",
+    "directory",
+    "dirsum",
+    "md5",
+    "digest"
+  ],
+  "author": "Gaspard Bucher <gaspard@lucidogen.io> (http://lucidogen.io/)",
+  "bugs": {
+    "url": "https://github.com/lucidogen/lucy-dirsum/issues"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "mocha": "~1.16.2"
+  },
+  "dependencies": {},
+  "homepage": "https://github.com/lucidogen/lucy-dirsum#readme",
+  "directories": {
+    "test": "test"
+  }
+}
