@@ -1,8 +1,8 @@
 # Lucy dirsum [![Build Status](https://travis-ci.org/lucidogen/lucy-dirsum.svg)](https://travis-ci.org/lucidogen/lucy-dirsum)
 
-Part of [Lucidity](http://lucidity.io) project.
+Create an md5 digest on all content of a directory.
 
-Utility functions and helper classes.
+Part of [Lucidity](http://lucidity.io) project.
 
 ## Installation
 
@@ -12,16 +12,18 @@ Utility functions and helper classes.
 
 ## dirsum ( path, callback, ignoreFunction )
 
-Returns an (async) md5 digest on all content in a directory. The ignore function
-can be used to ignore files. It receives a local path to directory and filename.
-For example, scanning '/some/directory', the file '/some/directory/foo/bar.txt'
-is checked by calling the ignore function with `( 'foo/bar.txt', 'bar.txt' )`.
-Returning true ignores the file. Default ignore function is to ignore files
-starting with a dot ('.').
+Returns an (async) md5 digest of all content inside a directory. The ignore
+function can be used to ignore files. It receives a local path to directory and
+filename. For example, scanning '/some/directory', the file
+'/some/directory/foo/bar.txt' is checked by calling the ignore function with `(
+'foo/bar.txt', 'bar.txt' )`. Returning true ignores the file. Default ignore
+function is to ignore files starting with a dot ('.').
 
 The hashing algorithm includes file names (and thus detects empty directory and
 file move) and does not read large files in memory (it uses read streams). Speed
 is directly proportional to fs.createReadStream (36s for 12G of data on i7 cpu).
+
+## Usage example
 
   ```js
   const dirsum = require ( 'lucy-util' ).dirsum
@@ -38,7 +40,7 @@ is directly proportional to fs.createReadStream (36s for 12G of data on i7 cpu).
     }
   , function ( path, filename )
     { return /^\./.exec ( filename )
-          || /^info\.txt/.exec ( path ) // ignore info.txt at root of folder
+          || /^info\.txt/.exec ( path ) // ignore info.txt at root
     }
   )
   ```
