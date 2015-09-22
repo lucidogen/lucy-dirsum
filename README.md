@@ -6,7 +6,7 @@ Part of [Lucidity](http://lucidity.io) project.
 
 ## Installation
 
-  ```shell
+  ```sh
   npm install lucy-dirsum --save
   ```
 
@@ -47,7 +47,7 @@ is directly proportional to fs.createReadStream (36s for 12G of data on i7 cpu).
 
 ## Tests
 
-  ```shell
+  ```sh
    npm test
   ```
 
