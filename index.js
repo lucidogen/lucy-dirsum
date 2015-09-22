@@ -11,6 +11,7 @@ const fs       = require ( 'fs'     )
 const md5 = function ( self, apath, rpath, clbk, isdir )
 { self.hash.update ( rpath ) // add relative path to hash
                              // for empty directory and file rename
+  self.text += rpath
   if ( isdir )
   { fs.readdir
     ( apath
@@ -55,6 +56,7 @@ const md5 = function ( self, apath, rpath, clbk, isdir )
     ( 'data'
     , function ( data )
       { self.hash.update ( data )
+        self.text += data
       }
     )
 
@@ -89,6 +91,7 @@ module.exports = function ( apath, clbk, ignore )
   let self =
   { hash: crypto.createHash ( 'md5' )
   , keep: keepFunc
+  , text: ''
   }
   fs.stat
   ( apath
@@ -101,6 +104,7 @@ module.exports = function ( apath, clbk, ignore )
       , function ( err )
         { if ( err ) return clbk ( err )
           clbk ( null, self.hash.digest ( 'hex' ) )
+          console.log ( '>>' + self.text + '<<' )
         }
       , stats.isDirectory ()
       )
