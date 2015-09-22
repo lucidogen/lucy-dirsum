@@ -1,6 +1,6 @@
 # Lucy dirsum [![Build Status](https://travis-ci.org/lucidogen/lucy-dirsum.svg)](https://travis-ci.org/lucidogen/lucy-dirsum)
 
-Create an md5 digest on all content of a directory.
+Create an md5 digest of all content inside a directory.
 
 Part of [Lucidity](http://lucidity.io) project.
 
@@ -26,7 +26,7 @@ is directly proportional to fs.createReadStream (36s for 12G of data on i7 cpu).
 ## Usage example
 
   ```js
-  const dirsum = require ( 'lucy-util' ).dirsum
+  const dirsum = require ( 'lucy-dirsum' )
 
   dirsum
   ( '/some/directory'
@@ -59,4 +59,5 @@ Add unit tests for any new or changed functionality.
 
 ## Release History
 
+  * 0.1.1 (2015-09-22) Fixed npm readme.
   * 0.1.0 (2015-09-22) Initial release.

@@ -1,7 +1,7 @@
 {
   "name": "lucy-dirsum",
-  "version": "0.1.0",
-  "description": "Utility functions and classes for Lucidity.",
+  "version": "0.1.1",
+  "description": "Create an md5 digest of all content inside a directory. Uses streams to avoid reading all data in memory.",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
