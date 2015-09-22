@@ -39,9 +39,15 @@ describe
             , FILE_CONTENTS [ key ]
             )
           }
-        }
-        if ( statPath ( base + 'checksum.txt' ) )
-        { fs.unlinkSync ( base + 'checksum.txt' )
+          if ( statPath ( base + 'checksum.txt' ) )
+          { fs.unlinkSync ( base + 'checksum.txt' )
+          }
+          if ( statPath ( base + 'sub/.foo' ) )
+          { fs.unlinkSync ( base + 'sub/.foo')
+          }
+          if ( !statPath ( base + 'empty' ) )
+          { fs.mkdirSync ( base + 'empty' )
+          }
         }
       }
     )          
@@ -212,16 +218,26 @@ describe
       }
     )
 
-    it
-    ( 'should ignore dot files'
-    , function ( done )
-      { fs.writeFileSync ( base + 'sub/.foo', Math.random () )
-        dirsum
-        ( base
-        , function ( err, hex )
-          { hex.should.equal ( DIRHEX )
-            fs.unlinkSync ( base + 'sub/.foo')
-            done ()
+    describe
+    ( 'with dot files'
+    , function ()
+      { before
+        ( function ()
+          { fs.writeFileSync ( base + 'sub/.foo', Math.random () )
+          }
+        )
+
+        it
+        ( 'should ignore dot files'
+        , function ( done )
+          { 
+            dirsum
+            ( base
+            , function ( err, hex )
+              { hex.should.equal ( DIRHEX )
+                done ()
+              }
+            )
           }
         )
       }
