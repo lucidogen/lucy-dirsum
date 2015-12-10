@@ -4,11 +4,11 @@
   Compute directory checksum.
 */
 'use strict'
-const crypto   = require ( 'crypto' )
-const path     = require ( 'path'   )
-const fs       = require ( 'fs'     )
+var crypto   = require ( 'crypto' )
+var path     = require ( 'path'   )
+var fs       = require ( 'fs'     )
 
-const md5 = function ( self, apath, rpath, clbk, isdir )
+var md5 = function ( self, apath, rpath, clbk, isdir )
 { self.hash.update ( rpath ) // add relative path to hash
                              // for empty directory and file rename
   if ( isdir )
@@ -18,14 +18,14 @@ const md5 = function ( self, apath, rpath, clbk, isdir )
       { if ( err ) return clbk ( err )
         // for digest consistency across platforms
         filenames.sort ()
-        let i = 0, len = filenames.length
-        let parse = function ( err )
+        var i = 0, len = filenames.length
+        var parse = function ( err )
         { if ( err ) return clbk ( err )
           if ( i >= len ) return clbk ()
-          let f = filenames [ i++ ]
-          let p = path.join ( apath, f )
+          var f = filenames [ i++ ]
+          var p = path.join ( apath, f )
           // ignore and compute relative path
-          let rp = self.keep ( p, f )
+          var rp = self.keep ( p, f )
           if ( ! rp )
           { parse ()
           }
@@ -49,7 +49,7 @@ const md5 = function ( self, apath, rpath, clbk, isdir )
     )
   }
   else
-  { let stream = fs.createReadStream ( apath )
+  { var stream = fs.createReadStream ( apath )
 
     stream.on
     ( 'data'
@@ -65,19 +65,19 @@ const md5 = function ( self, apath, rpath, clbk, isdir )
   }
 }
 
-const IGNORE_DOT_FILES = /^\./
+var IGNORE_DOT_FILES = /^\./
 
-const DEFAULT_IGNORE_FUNCTION = function ( path, filename )
+var DEFAULT_IGNORE_FUNCTION = function ( path, filename )
 { return IGNORE_DOT_FILES.exec ( filename )
 }
 
 module.exports = function ( apath, clbk, ignore )
 { apath = path.resolve ( apath )
   ignore = ignore || DEFAULT_IGNORE_FUNCTION
-  let plen = apath.length + 1
+  var plen = apath.length + 1
 
-  let keepFunc = function ( path, filename )
-  { let p = path.substring ( plen )
+  var keepFunc = function ( path, filename )
+  { var p = path.substring ( plen )
     if ( ignore ( p, filename ) )
     { return false
     }
@@ -86,7 +86,7 @@ module.exports = function ( apath, clbk, ignore )
     }
   }
   
-  let self =
+  var self =
   { hash: crypto.createHash ( 'md5' )
   , keep: keepFunc
   }
