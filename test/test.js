@@ -3,23 +3,23 @@
 require ( 'chai' )
 .should ()
 
-const fs = require ( 'fs' )
-const dirsum = require ( '../index' )
+var fs = require ( 'fs' )
+var dirsum = require ( '../index' )
 
-const IGNORE_FUNCTION = function ( path, filename )
+var IGNORE_FUNCTION = function ( path, filename )
 { return /^\./.exec ( filename )
       || /^checksum\.txt/.exec ( path )
 }
 
-const base = __dirname + '/fixtures/'
-const FILE_CONTENTS =
+var base = __dirname + '/fixtures/'
+var FILE_CONTENTS =
 { 'foo.txt': 'Foo.'
 , 'bar.txt': 'Bar.'
 , 'sub/Baz.txt': 'Baz baz.'
 }
-const DIRHEX = '3d7c284e8ebb554c1e5961340604b90c'
+var DIRHEX = '3d7c284e8ebb554c1e5961340604b90c'
 
-const statPath = function(path) {
+var statPath = function(path) {
   try {
     return fs.statSync(path)
   } catch (e) {}
@@ -33,7 +33,7 @@ describe
     beforeEach
     ( function ()
       { if ( statPath ( base ) )
-        { for ( let key in FILE_CONTENTS )
+        { for ( var key in FILE_CONTENTS )
           { fs.writeFileSync
             ( base + key
             , FILE_CONTENTS [ key ]
@@ -179,7 +179,7 @@ describe
     describe
     ( 'moving main folder'
     , function ()
-      { let newname = __dirname + '/fifi/'
+      { var newname = __dirname + '/fifi/'
         before
         ( function ()
           { fs.renameSync ( base, newname )
